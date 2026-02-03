@@ -10,7 +10,7 @@ const client = new Client({
 });
 
 // ================= CONFIG =================
-const CANAL_NORMATIVA_ID = "1222628538440617984";
+const CANAL_NORMATIVA_ID = "1464800212202815622";
 
 // ================= READY =================
 client.once(Events.ClientReady, async () => {
