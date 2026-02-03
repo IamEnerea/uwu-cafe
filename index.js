@@ -26,7 +26,7 @@ client.once(Events.ClientReady, async () => {
     .setTitle("📜 NORMATIVA — Uwu Café ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
-      "\n\n✨ **Por favor, lee atentamente esta normativa antes de entrar en servicio.**\n" +
+      "\n\n + ✨ **Por favor, lee atentamente esta normativa antes de entrar en servicio.**\n" +
       "El cumplimiento de estas normas es obligatorio para todo el personal.\n\n" +
 
       "**🕒 Horarios y Servicio**\n" +
@@ -54,8 +54,7 @@ client.once(Events.ClientReady, async () => {
       "• Ausencias mayores a **5 días** deben ser notificadas a jefatura.\n" +
       "• Para renunciar, se debe hablar directamente con jefatura de forma respetuosa.\n\n" +
 
-      "💗 **Gracias por formar parte de Uwu Café.**\n" +
-      "☕🎀"
+      "**Gracias por formar parte de Uwu Café. ☕🎀**\n" +
     )
     .setFooter({ text: "Uwu Café 🌸" })
     .setImage("https://media.discordapp.net/attachments/1468089843643842640/1468089919090987079/hq720.jpg");
