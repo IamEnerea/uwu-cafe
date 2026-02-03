@@ -26,7 +26,7 @@ client.once(Events.ClientReady, async () => {
     .setTitle("📜 NORMATIVA — Uwu Café ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
-      "\n\n + ✨ **Por favor, lee atentamente esta normativa antes de entrar en servicio.**\n" +
+      "✨ **Por favor, lee atentamente esta normativa antes de entrar en servicio.**\n" +
       "El cumplimiento de estas normas es obligatorio para todo el personal.\n\n" +
 
       "**🕒 Horarios y Servicio**\n" +
