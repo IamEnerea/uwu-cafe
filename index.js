@@ -23,20 +23,19 @@ client.once(Events.ClientReady, async () => {
   if (mensajes.some(m => m.author.id === client.user.id)) return;
 
   const embed = new EmbedBuilder()
-    .setTitle("📜 Normativa Oficial — Uwu Café ☕🎀")
+    .setTitle("📜 Normativa — Uwu Café ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
       "✨ **Por favor, lee atentamente esta normativa antes de entrar en servicio.**\n" +
       "El cumplimiento de estas normas es obligatorio para todo el personal.\n\n" +
 
       "**🕒 Horarios y Servicio**\n" +
-      "• Todo empleado **DEBE** iniciar y finalizar su turno utilizando el bot **Uwu Time**.\n" +
-      "• No fichar correctamente puede afectar **ascensos, descensos o permanencia** en el local.\n" +
+      "• Todo empleado **DEBE** iniciar y finalizar su turno en el apartado de **Fichaje**.\n" +
       "• Al iniciar servicio es obligatorio usar **/anuncio** indicando que el local está abierto.\n" +
       "• Durante el servicio, se debe anunciar menú, promociones o disponibilidad **cada 30 minutos**.\n\n" +
 
       "**📈 Ascensos y Desempeño**\n" +
-      "• Los ascensos dependen de actitud, compromiso, horas trabajadas y buen rol.\n" +
+      "• Los ascensos dependen de actitud, compromiso, horas trabajadas.\n" +
       "• Está prohibido insistir o presionar a jefatura para obtener un ascenso.\n\n" +
 
       "**💰 Cobros y Consumo**\n" +
