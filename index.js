@@ -23,7 +23,7 @@ client.once(Events.ClientReady, async () => {
   if (mensajes.some(m => m.author.id === client.user.id)) return;
 
   const embed = new EmbedBuilder()
-    .setTitle("📜 Normativa — Uwu Café ☕🎀")
+    .setTitle("📜 Normativa — Uwu Café ☕🎀\n\n")
     .setColor(0xF6A5C0)
     .setDescription(
       "✨ **Por favor, lee atentamente esta normativa antes de entrar en servicio.**\n" +
@@ -56,6 +56,9 @@ client.once(Events.ClientReady, async () => {
 
       "💗 **Gracias por formar parte de Uwu Café.**\n" +
       "☕🎀"
+      
+  .setFooter({ text: "Uwu Café 🌸" })
+  .setImage("https://media.discordapp.net/attachments/1468089843643842640/1468089919090987079/hq720.jpg?ex=6982c0c8&is=69816f48&hm=fc93319efb718839e4ca05ddbff0264c76c14b6c5942692c4049e9329e409a27&=&format=webp");
     );
 
   await canal.send({ embeds: [embed] });
