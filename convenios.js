@@ -59,7 +59,6 @@ module.exports = async (client) => {
 
   // ================= INTERACCIONES =================
 
-  client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton()) return;
     const guild = interaction.guild;
 
