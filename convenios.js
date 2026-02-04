@@ -37,7 +37,7 @@ module.exports = async (client) => {
     .setColor(0xF6A5C0)
     .setDescription(
       "────────── ✧ ──────────\n\n" +
-      "**¿Tienes un negocio, taller o proyecto y deseas colaborar con Uwu Café?** ✨\n\n" +
+      "**¿Tienes un negocio o taller y deseas colaborar con nosotros?** ✨\n\n" +
       "• También realizamos **pedidos grandes** y **alianzas comerciales** 🧁💼\n" +
       "• Presiona el botón de abajo para abrir un ticket de convenio 💖\n" +
       "• Nuestro equipo se pondrá en contacto contigo 🧸\n\n" +
@@ -48,7 +48,7 @@ module.exports = async (client) => {
   const botonAbrir = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId("abrir_convenio")
-      .setLabel("Solicitar convenio 💼")
+      .setLabel("Solicitar convenio 🤝")
       .setStyle(ButtonStyle.Primary)
   );
 
