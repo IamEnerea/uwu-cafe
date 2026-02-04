@@ -36,11 +36,11 @@ module.exports = async (client) => {
     .setTitle("💌 Reservas — Uwu Café ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
-      "────────── ✧ ──────────\n" +
+      "────────── ✧ ──────────\n\n" +
       "¿Quieres reservar una mesa o el local completo? ✨\n" +
       "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
-      "────────── ✧ ──────────\n\n" +
-      "Reacciona presionando el botón de abajo y agenda tu reserva 💖\n\n" +
+      "────────── ✧ ──────────\n" +
+      "Reacciona presionando el botón de abajo y agenda tu reserva 💖\n" +
       "Nuestro personal te atenderá lo antes posible 🧸\n\n" +
       "────────── ✧ ──────────\n"
     )
@@ -49,7 +49,7 @@ module.exports = async (client) => {
   const botonAbrir = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId("abrir_reserva")
-      .setLabel("Reservar 💌")
+      .setLabel("Reserva aquí 💌")
       .setStyle(ButtonStyle.Primary)
   );
 
