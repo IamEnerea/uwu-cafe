@@ -14,9 +14,10 @@ module.exports = async (client) => {
       .setColor(0xF6A5C0)
       .setTitle("💌 Reservas — Uwu Café ☕🎀")
       .setDescription(
-        "¿Quieres reservar una mesa o el local completo? ✨\n\n" +
-        "Presiona el botón **💌** y haz tu reserva.\n" +
-        "Te esperamos con café, dulzura y mucho uwu 💗"
+      "¿Quieres reservar una mesa o el local completo? ✨\n" +
+      "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
+      "**Reacciona con 💌 y agenda tu reserva 💗**\n" +
+      "Nuestro staff te atenderá lo antes posible 🧸"
       )
       .setFooter({ text: "Uwu Café 🌸" });
 
