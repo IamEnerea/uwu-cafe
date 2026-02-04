@@ -12,11 +12,12 @@ module.exports = async (client) => {
 
     const embed = new EmbedBuilder()
       .setColor(0xF6A5C0)
-      .setTitle("💌 Reservas — Uwu Café ☕🎀")
+      .setTitle("Reservas ☕🎀")
       .setDescription(
+      "ㅤ\n" +
       "¿Quieres reservar una mesa o el local completo? ✨\n" +
       "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
-      "**Reacciona con 💌 y agenda tu reserva 💗**\n" +
+      "**Reacciona con 💌 y agenda tu reserva 💖**\n" +
       "Nuestro staff te atenderá lo antes posible 🧸"
       )
       .setFooter({ text: "Uwu Café 🌸" });
