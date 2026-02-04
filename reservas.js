@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+poconst { EmbedBuilder } = require("discord.js");
 
 const CANAL_RESERVAS_ID = "1464793823719985172";
 
@@ -17,8 +17,8 @@ module.exports = async (client) => {
       "ㅤ\n" +
       "¿Quieres reservar una mesa o el local completo? ✨\n" +
       "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
-      "**Reacciona con 💌 y agenda tu reserva 💖**\n" +
-      "Nuestro staff te atenderá lo antes posible 🧸"
+      "**Reacciona con 💌 y agenda tu reserva 💖**\n\n" +
+      "Nuestro equipo te atenderá lo antes posible 🧸"
       )
       .setFooter({ text: "Uwu Café 🌸" });
 
