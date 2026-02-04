@@ -20,6 +20,9 @@ client.once(Events.ClientReady, async () => {
   const reservas = require("./reservas");
   await reservas(client);
 
+  const convenios = require("./convenios");
+  await convenios(client);
+
   // ===== NORMATIVA =====
   const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
 
