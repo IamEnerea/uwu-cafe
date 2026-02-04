@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 
-const CANAL_RESERVAS_ID = "PON_AQUI_EL_ID_REAL";
+const CANAL_RESERVAS_ID = "1464793823719985172";
 
 module.exports = async (client) => {
   try {
