@@ -21,17 +21,13 @@ const STAFF_ROLE_IDS = [
   "1464806004037390543"
 ];
 
-// ================= FUNCIÓN PRINCIPAL =================
-
 module.exports = async (client) => {
   const canal = await client.channels.fetch(CANAL_RESERVAS_ID);
   if (!canal) return;
 
-  // Evitar duplicar el mensaje
   const mensajes = await canal.messages.fetch({ limit: 10 });
   if (mensajes.some(m => m.author.id === client.user.id)) return;
 
-  // ===== EMBED BONITO DE RESERVAS =====
   const embed = new EmbedBuilder()
     .setTitle("Reservas ☕🎀")
     .setColor(0xF6A5C0)
@@ -52,35 +48,27 @@ module.exports = async (client) => {
       .setStyle(ButtonStyle.Primary)
   );
 
-  await canal.send({
-    embeds: [embed],
-    components: [botonAbrir]
-  });
-
-  // ================= INTERACCIONES =================
+  await canal.send({ embeds: [embed], components: [botonAbrir] });
 
   client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton()) return;
-
     const guild = interaction.guild;
 
     // ===== ABRIR TICKET =====
     if (interaction.customId === "abrir_reserva") {
+      await interaction.deferReply({ ephemeral: true }); // 🔑 CLAVE
 
-      // Verificar si ya tiene ticket abierto
       const existente = guild.channels.cache.find(c =>
         c.parentId === CATEGORIA_RESERVAS_ID &&
         c.topic === interaction.user.id
       );
 
       if (existente) {
-        return interaction.reply({
-          content: "Ya tienes un ticket de reserva abierto. 💖",
-          ephemeral: true
-        });
+        return interaction.editReply(
+          "Ya tienes un ticket de reserva abierto. 💖"
+        );
       }
 
-      // ===== NUMERACIÓN CONSECUTIVA =====
       const numero = String(
         guild.channels.cache.filter(c =>
           c.parentId === CATEGORIA_RESERVAS_ID &&
@@ -89,10 +77,7 @@ module.exports = async (client) => {
       ).padStart(3, "0");
 
       const permisos = [
-        {
-          id: guild.id,
-          deny: [PermissionsBitField.Flags.ViewChannel]
-        },
+        { id: guild.id, deny: [PermissionsBitField.Flags.ViewChannel] },
         {
           id: interaction.user.id,
           allow: [
@@ -129,7 +114,6 @@ module.exports = async (client) => {
           `Hola ${interaction.user} 🧸💖\n\n` +
           "Gracias por tu interés en **Uwu Café** ☕🎀\n\n" +
           "────────── ✧ ──────────\n\n" +
-          "Por favor, completa la siguiente información:\n\n" +
           "📅 **Fecha de la reserva**\n" +
           "⏰ **Hora**\n" +
           "🍽️ **Mesa o local completo**\n" +
@@ -146,38 +130,26 @@ module.exports = async (client) => {
           .setStyle(ButtonStyle.Secondary)
       );
 
-      await ticket.send({
-        embeds: [embedTicket],
-        components: [botonCerrar]
-      });
+      await ticket.send({ embeds: [embedTicket], components: [botonCerrar] });
 
-      await interaction.reply({
-        content: `💖 Tu ticket fue creado: ${ticket}`,
-        ephemeral: true
-      });
+      await interaction.editReply(
+        `💖 Tu ticket fue creado correctamente: ${ticket}`
+      );
     }
 
-    // ===== CERRAR TICKET (SIN BORRAR) =====
+    // ===== CERRAR TICKET =====
     if (interaction.customId === "cerrar_reserva") {
+      await interaction.deferReply();
+
       const canal = interaction.channel;
       const numero = canal.name.split("-").pop();
 
-      // Bloquear escritura
-      await canal.permissionOverwrites.edit(guild.id, {
-        SendMessages: false
-      });
-
+      await canal.permissionOverwrites.edit(guild.id, { SendMessages: false });
       for (const id of STAFF_ROLE_IDS) {
-        await canal.permissionOverwrites.edit(id, {
-          SendMessages: false
-        });
+        await canal.permissionOverwrites.edit(id, { SendMessages: false });
       }
+      await canal.permissionOverwrites.edit(canal.topic, { SendMessages: false });
 
-      await canal.permissionOverwrites.edit(canal.topic, {
-        SendMessages: false
-      });
-
-      // Renombrar canal
       await canal.setName(`cerrado-reserva-${numero}`);
 
       const embedCerrado = new EmbedBuilder()
@@ -186,10 +158,9 @@ module.exports = async (client) => {
         .setDescription(
           `La **Reserva #${numero}** ha sido cerrada correctamente 🧸💗\n\n` +
           "Gracias por confiar en **Uwu Café** ☕🎀"
-        )
-        .setFooter({ text: "Uwu Café 🌸" });
+        );
 
-      await interaction.reply({ embeds: [embedCerrado] });
+      await interaction.editReply({ embeds: [embedCerrado] });
     }
   });
 };
