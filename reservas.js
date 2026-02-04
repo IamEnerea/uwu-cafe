@@ -50,6 +50,8 @@ module.exports = async (client) => {
 
   await canal.send({ embeds: [embed], components: [botonAbrir] });
 
+    client.on("interactionCreate", async (interaction) => {
+
     if (!interaction.isButton()) return;
     const guild = interaction.guild;
 
