@@ -33,12 +33,12 @@ module.exports = async (client) => {
 
   // ===== EMBED BONITO DE RESERVAS =====
   const embed = new EmbedBuilder()
-    .setTitle("💌 Reservas — Uwu Café ☕🎀")
+    .setTitle("Reservas ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
       "────────── ✧ ──────────\n\n" +
       "¿Quieres reservar una mesa o el local completo? ✨\n" +
-      "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
+      "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n" +
       "────────── ✧ ──────────\n" +
       "Reacciona presionando el botón de abajo y agenda tu reserva 💖\n" +
       "Nuestro personal te atenderá lo antes posible 🧸\n\n" +
