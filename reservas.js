@@ -36,21 +36,21 @@ module.exports = async (client) => {
     .setTitle("💌 Reservas — Uwu Café ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
-        "────────── ✧ ──────────\n" +
-        "¿Quieres reservar una mesa o el local completo? ✨\n" +
-        "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
-        "────────── ✧ ──────────\n\n" +
-        "Reacciona presionando el botón de abajo y agenda tu reserva 💖\n\n" +
-        "Nuestro personal te atenderá lo antes posible 🧸"
-        "────────── ✧ ──────────\n\n" +
-     );
+      "────────── ✧ ──────────\n" +
+      "¿Quieres reservar una mesa o el local completo? ✨\n" +
+      "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
+      "────────── ✧ ──────────\n\n" +
+      "Reacciona presionando el botón de abajo y agenda tu reserva 💖\n\n" +
+      "Nuestro personal te atenderá lo antes posible 🧸\n\n" +
+      "────────── ✧ ──────────\n"
+    )
     .setFooter({ text: "Uwu Café ☕🎀" });
 
   const botonAbrir = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId("abrir_reserva")
       .setLabel("Reservar 💌")
-      .setStyle(ButtonStyle.Pink)
+      .setStyle(ButtonStyle.Primary)
   );
 
   await canal.send({
@@ -67,7 +67,6 @@ module.exports = async (client) => {
     if (interaction.customId === "abrir_reserva") {
       const guild = interaction.guild;
 
-      // Verificar si ya tiene ticket abierto
       const existente = guild.channels.cache.find(c =>
         c.parentId === CATEGORIA_RESERVAS_ID &&
         c.name === `reserva-${interaction.user.id}`
@@ -151,14 +150,18 @@ module.exports = async (client) => {
     // ===== CERRAR TICKET =====
     if (interaction.customId === "cerrar_reserva") {
       const canal = interaction.channel;
+      const numero = canal.id.slice(-4);
 
-      const numeroTicket = canal.id.slice(-4);
+      const embedCerrado = new EmbedBuilder()
+        .setTitle("🔒 Reserva cerrada")
+        .setColor(0xF6A5C0)
+        .setDescription(
+          `La **Reserva #${numero}** ha sido cerrada correctamente 🧸💗\n\n` +
+          "Gracias por confiar en **Uwu Café** ☕🎀"
+        )
+        .setFooter({ text: "Uwu Café 🌸" });
 
-      await canal.send(
-        `🔒 **Reserva cerrada**\n` +
-        `🧾 Número de reserva: **#${numeroTicket}**\n` +
-        `Gracias por confiar en **Uwu Café** ☕🎀`
-      );
+      await canal.send({ embeds: [embedCerrado] });
 
       setTimeout(() => canal.delete(), 5000);
     }
