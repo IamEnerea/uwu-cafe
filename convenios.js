@@ -59,13 +59,14 @@ module.exports = async (client) => {
 
   // ================= INTERACCIONES =================
 
+  client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton()) return;
+
     const guild = interaction.guild;
 
     // ===== ABRIR CONVENIO =====
     if (interaction.customId === "abrir_convenio") {
 
-      // Verificar si ya tiene convenio abierto
       const existente = guild.channels.cache.find(c =>
         c.parentId === CATEGORIA_CONVENIOS_ID &&
         c.topic === interaction.user.id
@@ -124,15 +125,15 @@ module.exports = async (client) => {
         .setTitle("Convenio 🤝☕")
         .setColor(0xF6A5C0)
         .setDescription(
-           `Hola ${interaction.user} 🧸💖\n\n` +
+          `Hola ${interaction.user} 🧸💖\n\n` +
           "Gracias por tu interés en colaborar con **Uwu Café** ☕🎀\n\n" +
           "────────── ✧ ──────────\n\n" +
           "Por favor, indícanos:\n\n" +
-          "🏢 **Nombre del negocio o taller:**\n" +
-          "📦 **Tipo de convenio o pedido:**\n" +
-          "📅 **Fecha estimada:**\n" +
-          "📞 **Número de contacto:**\n" +
-          "📝 **Detalles adicionales:**\n\n" +
+          "🏢 **Nombre del negocio o taller**\n" +
+          "📦 **Tipo de convenio o pedido**\n" +
+          "📅 **Fecha estimada**\n" +
+          "📞 **Número de contacto**\n" +
+          "📝 **Detalles adicionales**\n\n" +
           "────────── ✧ ──────────\n\n" +
           "Nuestro equipo te responderá lo antes posible ✨"
         );
@@ -160,19 +161,11 @@ module.exports = async (client) => {
       const canal = interaction.channel;
       const numero = canal.name.split("-").pop();
 
-      await canal.permissionOverwrites.edit(guild.id, {
-        SendMessages: false
-      });
-
+      await canal.permissionOverwrites.edit(guild.id, { SendMessages: false });
       for (const id of STAFF_ROLE_IDS) {
-        await canal.permissionOverwrites.edit(id, {
-          SendMessages: false
-        });
+        await canal.permissionOverwrites.edit(id, { SendMessages: false });
       }
-
-      await canal.permissionOverwrites.edit(canal.topic, {
-        SendMessages: false
-      });
+      await canal.permissionOverwrites.edit(canal.topic, { SendMessages: false });
 
       await canal.setName(`cerrado-convenio-${numero}`);
 
@@ -180,7 +173,7 @@ module.exports = async (client) => {
         .setTitle("🔒 Convenio cerrado")
         .setColor(0xF6A5C0)
         .setDescription(
-          `Este convenio ha sido marcado como **cerrado** 🧸💖 \n\n` +
+          `El **Convenio #${numero}** ha sido cerrado correctamente 🧸💖\n\n` +
           "Gracias por tu interés en **Uwu Café** ☕🎀"
         )
         .setFooter({ text: "Uwu Café 🌸" });
