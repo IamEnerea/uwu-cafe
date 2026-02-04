@@ -1,4 +1,4 @@
-poconst { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 const CANAL_RESERVAS_ID = "1464793823719985172";
 
