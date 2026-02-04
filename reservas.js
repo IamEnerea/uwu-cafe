@@ -114,9 +114,9 @@ module.exports = async (client) => {
 
       const embedTicket = new EmbedBuilder()
         .setColor(0xF6A5C0)
-        .setTitle("💌 Reserva — Uwu Café ☕🎀")
+        .setTitle("Reservas ☕🎀")
         .setDescription(
-          `Hola ${interaction.user} 🧸💗\n\n` +
+          `Hola ${interaction.user} 🧸💖\n\n` +
           "Gracias por tu interés en **Uwu Café** ☕🎀\n\n" +
           "────────── ✧ ──────────\n\n" +
           "Por favor, completa la siguiente información:\n\n" +
