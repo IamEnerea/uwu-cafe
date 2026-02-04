@@ -9,13 +9,13 @@ const {
 
 // ================= CONFIGURACIÓN =================
 
-// 🤝 Canal donde se enviará el mensaje de convenios
+// 💼 Canal donde se enviará el mensaje de convenios
 const CANAL_CONVENIOS_ID = "1464794312163201276";
 
 // 📂 Categoría donde se crearán los tickets
 const CATEGORIA_CONVENIOS_ID = "1464810778724008139";
 
-// 👥 Roles del staff (máx 2)
+// 👥 Roles del staff
 const STAFF_ROLE_IDS = [
   "1464790642134876243",
   "1464806004037390543"
@@ -31,13 +31,13 @@ module.exports = async (client) => {
   const mensajes = await canal.messages.fetch({ limit: 10 });
   if (mensajes.some(m => m.author.id === client.user.id)) return;
 
-  // ===== EMBED CONVENIOS =====
+  // ===== EMBED DE CONVENIOS =====
   const embed = new EmbedBuilder()
     .setTitle("Convenios ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
       "────────── ✧ ──────────\n\n" +
-      "**¿Tienes un negocio o taller y deseas colaborar con nosotros?** ✨\n\n" +
+      "**¿Tienes un negocio, taller o proyecto y deseas colaborar con Uwu Café?** ✨\n\n" +
       "• También realizamos **pedidos grandes** y **alianzas comerciales** 🧁💼\n" +
       "• Presiona el botón de abajo para abrir un ticket de convenio 💖\n" +
       "• Nuestro equipo se pondrá en contacto contigo 🧸\n\n" +
@@ -48,7 +48,7 @@ module.exports = async (client) => {
   const botonAbrir = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId("abrir_convenio")
-      .setLabel("Solicita tu convenio 🤝")
+      .setLabel("Solicitar convenio 💼")
       .setStyle(ButtonStyle.Primary)
   );
 
@@ -61,15 +61,31 @@ module.exports = async (client) => {
 
   client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton()) return;
+    const guild = interaction.guild;
 
     // ===== ABRIR CONVENIO =====
     if (interaction.customId === "abrir_convenio") {
-      const guild = interaction.guild;
 
-      const contador =
+      // Verificar si ya tiene convenio abierto
+      const existente = guild.channels.cache.find(c =>
+        c.parentId === CATEGORIA_CONVENIOS_ID &&
+        c.topic === interaction.user.id
+      );
+
+      if (existente) {
+        return interaction.reply({
+          content: "Ya tienes un convenio abierto 🤍",
+          ephemeral: true
+        });
+      }
+
+      // ===== NUMERACIÓN CONSECUTIVA =====
+      const numero = String(
         guild.channels.cache.filter(c =>
-          c.parentId === CATEGORIA_CONVENIOS_ID
-        ).size + 1;
+          c.parentId === CATEGORIA_CONVENIOS_ID &&
+          c.name.startsWith("convenio-")
+        ).size + 1
+      ).padStart(3, "0");
 
       const permisos = [
         {
@@ -98,17 +114,18 @@ module.exports = async (client) => {
       });
 
       const ticket = await guild.channels.create({
-        name: `convenio-${contador}`,
+        name: `convenio-${numero}`,
+        topic: interaction.user.id,
         type: ChannelType.GuildText,
         parent: CATEGORIA_CONVENIOS_ID,
         permissionOverwrites: permisos
       });
 
       const embedTicket = new EmbedBuilder()
+        .setTitle("Convenio 🤝☕")
         .setColor(0xF6A5C0)
-        .setTitle("Convenios ☕🎀")
         .setDescription(
-          `Hola ${interaction.user} 🧸💖\n\n` +
+           `Hola ${interaction.user} 🧸💖\n\n` +
           "Gracias por tu interés en colaborar con **Uwu Café** ☕🎀\n\n" +
           "────────── ✧ ──────────\n\n" +
           "Por favor, indícanos:\n\n" +
@@ -134,29 +151,42 @@ module.exports = async (client) => {
       });
 
       await interaction.reply({
-        content: `💖 Tu ticket de convenio fue creado: ${ticket}`,
+        content: `💼 Tu convenio fue creado: ${ticket}`,
         ephemeral: true
       });
     }
 
-    // ===== CERRAR CONVENIO =====
+    // ===== CERRAR CONVENIO (SIN BORRAR) =====
     if (interaction.customId === "cerrar_convenio") {
       const canal = interaction.channel;
+      const numero = canal.name.split("-").pop();
+
+      await canal.permissionOverwrites.edit(guild.id, {
+        SendMessages: false
+      });
+
+      for (const id of STAFF_ROLE_IDS) {
+        await canal.permissionOverwrites.edit(id, {
+          SendMessages: false
+        });
+      }
+
+      await canal.permissionOverwrites.edit(canal.topic, {
+        SendMessages: false
+      });
+
+      await canal.setName(`cerrado-convenio-${numero}`);
 
       const embedCerrado = new EmbedBuilder()
         .setTitle("🔒 Convenio cerrado")
         .setColor(0xF6A5C0)
         .setDescription(
-          "Este convenio ha sido marcado como **cerrado** 🧸💖\n\n" +
+          `Este convenio ha sido marcado como **cerrado** 🧸💖 \n\n` +
           "Gracias por tu interés en **Uwu Café** ☕🎀"
         )
         .setFooter({ text: "Uwu Café 🌸" });
 
-      await canal.send({ embeds: [embedCerrado] });
-
-      await canal.permissionOverwrites.edit(canal.guild.id, {
-        ViewChannel: false
-      });
+      await interaction.reply({ embeds: [embedCerrado] });
     }
   });
 };
