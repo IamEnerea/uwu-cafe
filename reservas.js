@@ -43,7 +43,7 @@ module.exports = async (client) => {
         "Reacciona presionando el botón de abajo y agenda tu reserva 💖\n\n" +
         "Nuestro personal te atenderá lo antes posible 🧸"
         "────────── ✧ ──────────\n\n" +
-     )
+     );
     .setFooter({ text: "Uwu Café ☕🎀" });
 
   const botonAbrir = new ActionRowBuilder().addComponents(
