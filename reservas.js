@@ -37,7 +37,7 @@ module.exports = async (client) => {
     .setColor(0xF6A5C0)
     .setDescription(
       "────────── ✧ ──────────\n\n" +
-      "**¿Quieres reservar una mesa o el local completo?/** ✨\n\n" +
+      "**¿Quieres reservar una mesa o el local completo?** ✨\n\n" +
       "• Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n" +
       "• Reacciona presionando el botón de abajo y agenda tu reserva 💖\n" +
       "• Nuestro personal te atenderá lo antes posible 🧸\n\n" +
