@@ -1,38 +1,29 @@
-const {
-  Client,
-  GatewayIntentBits,
-  Events,
-  EmbedBuilder
-} = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
-const client = new Client({
-  intents: [GatewayIntentBits.Guilds]
-});
+const CANAL_RESERVAS_ID = "PON_AQUI_EL_ID_REAL";
 
-// ================= CONFIG =================
-const CANAL_RESERVAS_ID = "1464793823719985172";
+module.exports = async (client) => {
+  try {
+    const canal = await client.channels.fetch(CANAL_RESERVAS_ID);
+    if (!canal) return;
 
-// ================= READY =================
-client.once(Events.ClientReady, async () => {
-  console.log(`☕🎀 Uwu Café (Reservas) activo como ${client.user.tag}`);
+    const mensajes = await canal.messages.fetch({ limit: 10 });
+    if (mensajes.some(m => m.author.id === client.user.id)) return;
 
-  const canal = await client.channels.fetch(CANAL_RESERVAS_ID);
+    const embed = new EmbedBuilder()
+      .setColor(0xF6A5C0)
+      .setTitle("💌 Reservas — Uwu Café ☕🎀")
+      .setDescription(
+        "¿Quieres reservar una mesa o el local completo? ✨\n\n" +
+        "Presiona el botón **💌** y haz tu reserva.\n" +
+        "Te esperamos con café, dulzura y mucho uwu 💗"
+      )
+      .setFooter({ text: "Uwu Café 🌸" });
 
-  const mensajes = await canal.messages.fetch({ limit: 10 });
-  if (mensajes.some(m => m.author.id === client.user.id)) return;
+    await canal.send({ embeds: [embed] });
 
-  const embed = new EmbedBuilder()
-    .setTitle("💌 Reservas — Uwu Café ☕🎀")
-    .setColor(0xF6A5C0)
-    .setDescription(
-      "¿Quieres reservar una mesa o el local completo? ✨\n" +
-      "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
-      "**Reacciona con 💌 y agenda tu reserva 💖**\n" +
-      "Nuestro personal te atenderá lo antes posible 🧸"
-    )
-    .setFooter({ text: "Uwu Café 🌸" });
+  } catch (error) {
+    console.error("❌ Error en reservas:", error);
+  }
+};
 
-  await canal.send({ embeds: [embed] });
-});
-
-client.login(process.env.TOKEN);
