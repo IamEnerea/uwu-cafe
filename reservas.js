@@ -63,13 +63,15 @@ module.exports = async (client) => {
   client.on("interactionCreate", async (interaction) => {
     if (!interaction.isButton()) return;
 
+    const guild = interaction.guild;
+
     // ===== ABRIR TICKET =====
     if (interaction.customId === "abrir_reserva") {
-      const guild = interaction.guild;
 
+      // Verificar si ya tiene ticket abierto
       const existente = guild.channels.cache.find(c =>
         c.parentId === CATEGORIA_RESERVAS_ID &&
-        c.name === `reserva-${interaction.user.id}`
+        c.topic === interaction.user.id
       );
 
       if (existente) {
@@ -78,6 +80,14 @@ module.exports = async (client) => {
           ephemeral: true
         });
       }
+
+      // ===== NUMERACIÓN CONSECUTIVA =====
+      const numero = String(
+        guild.channels.cache.filter(c =>
+          c.parentId === CATEGORIA_RESERVAS_ID &&
+          c.name.startsWith("reserva-")
+        ).size + 1
+      ).padStart(3, "0");
 
       const permisos = [
         {
@@ -106,7 +116,8 @@ module.exports = async (client) => {
       });
 
       const ticket = await guild.channels.create({
-        name: `reserva-${interaction.user.id}`,
+        name: `reserva-${numero}`,
+        topic: interaction.user.id,
         type: ChannelType.GuildText,
         parent: CATEGORIA_RESERVAS_ID,
         permissionOverwrites: permisos
@@ -147,10 +158,28 @@ module.exports = async (client) => {
       });
     }
 
-    // ===== CERRAR TICKET =====
+    // ===== CERRAR TICKET (SIN BORRAR) =====
     if (interaction.customId === "cerrar_reserva") {
       const canal = interaction.channel;
-      const numero = canal.id.slice(-4);
+      const numero = canal.name.split("-").pop();
+
+      // Bloquear escritura
+      await canal.permissionOverwrites.edit(guild.id, {
+        SendMessages: false
+      });
+
+      for (const id of STAFF_ROLE_IDS) {
+        await canal.permissionOverwrites.edit(id, {
+          SendMessages: false
+        });
+      }
+
+      await canal.permissionOverwrites.edit(canal.topic, {
+        SendMessages: false
+      });
+
+      // Renombrar canal
+      await canal.setName(`cerrado-reserva-${numero}`);
 
       const embedCerrado = new EmbedBuilder()
         .setTitle("🔒 Reserva cerrada")
@@ -161,9 +190,7 @@ module.exports = async (client) => {
         )
         .setFooter({ text: "Uwu Café 🌸" });
 
-      await canal.send({ embeds: [embedCerrado] });
-
-      setTimeout(() => canal.delete(), 5000);
+      await interaction.reply({ embeds: [embedCerrado] });
     }
   });
 };
