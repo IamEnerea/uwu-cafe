@@ -15,6 +15,10 @@ const CANAL_NORMATIVA_ID = "1464800212202815622";
 // ================= READY =================
 client.once(Events.ClientReady, async () => {
   console.log(`☕🎀 Uwu Café está online como ${client.user.tag}`);
+  
+  const reservas = require("./reservas");
+  await reservas(client);
+  });
 
   const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
 
