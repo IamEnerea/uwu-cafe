@@ -36,14 +36,14 @@ module.exports = async (client) => {
     .setTitle("💌 Reservas — Uwu Café ☕🎀")
     .setColor(0xF6A5C0)
     .setDescription(
-      "ㅤ\n" +
+        "────────── ✧ ──────────\n" +
         "¿Quieres reservar una mesa o el local completo? ✨\n" +
         "Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n\n" +
         "────────── ✧ ──────────\n\n" +
         "Reacciona presionando el botón de abajo y agenda tu reserva 💖\n\n" +
         "Nuestro personal te atenderá lo antes posible 🧸"
         "────────── ✧ ──────────\n\n" +
-    )
+     )
     .setFooter({ text: "Uwu Café ☕🎀" });
 
   const botonAbrir = new ActionRowBuilder().addComponents(
