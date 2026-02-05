@@ -48,7 +48,7 @@ async function enviarMensaje(client) {
 
       "────────── ✧ ──────────\n\n" +
 
-      "💡 **Recordatorio**\n" +
+      "💡 **Recordatorio**\n\n" +
       "• Usar estos anuncios solo cuando estés en servicio\n" +
       "• Puedes proponer nuevas ideas de anuncios en este mismo canal\n\n" +
 
