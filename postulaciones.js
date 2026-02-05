@@ -5,7 +5,7 @@ const {
   ButtonStyle,
   ChannelType,
   PermissionsBitField
-} = require("discord.js");
+} = require("discord.js"); 
 
 // ================= CONFIGURACIÓN =================
 
