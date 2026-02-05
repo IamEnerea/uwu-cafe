@@ -1,13 +1,12 @@
 const { EmbedBuilder } = require("discord.js");
 
-// 📝 Canal donde irá el mensaje de anuncios internos
-const CANAL_ANUNCIOS_ID = "1469074594806759657"; // ← cambia SOLO esto
+const CANAL_ANUNCIOS_ID = "1464800212202815622"; // CAMBIA SI ES OTRO CANAL
 
-module.exports = async (client) => {
+async function enviarMensaje(client) {
   const canal = await client.channels.fetch(CANAL_ANUNCIOS_ID);
   if (!canal) return;
 
-  // Evitar duplicar el mensaje
+  // Evitar duplicados
   const mensajes = await canal.messages.fetch({ limit: 10 });
   if (mensajes.some(m => m.author.id === client.user.id)) return;
 
@@ -52,8 +51,10 @@ module.exports = async (client) => {
       "• Usar estos anuncios solo cuando estés en servicio\n" +
       "• Puedes proponer nuevas ideas de anuncios en este mismo canal\n\n" +
       "**Gracias por formar parte de Uwu Café ☕🎀**"
-    )
-    .setFooter({ text: "Uwu Café 🌸" });
+     )
+  .setFooter({ text: "Uwu Café 🌸" });
 
   await canal.send({ embeds: [embed] });
-};
+}
+
+module.exports = { enviarMensaje };
