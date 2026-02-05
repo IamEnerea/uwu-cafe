@@ -57,6 +57,7 @@ async function enviarMensajePrincipal(client) {
 
 async function abrir(interaction) {
   const guild = interaction.guild;
+  await interaction.deferReply({ ephemeral: true });
 
   const existente = guild.channels.cache.find(c =>
     c.parentId === CATEGORIA_CONVENIOS_ID &&
@@ -64,10 +65,9 @@ async function abrir(interaction) {
   );
 
   if (existente) {
-    return interaction.reply({
-      content: "Ya tienes un convenio abierto 🤍",
-      ephemeral: true
-    });
+    return interaction.editReply(
+      "Ya tienes un convenio abierto 🤍"
+    );
   }
 
   const numero = String(
@@ -134,13 +134,13 @@ async function abrir(interaction) {
 
   await ticket.send({ embeds: [embedTicket], components: [botonCerrar] });
 
-  await interaction.reply({
-    content: `💼 Tu convenio fue creado: ${ticket}`,
-    ephemeral: true
-  });
+  await interaction.editReply(
+    `💼 Tu convenio fue creado correctamente: ${ticket}`
+  );
 }
 
 async function cerrar(interaction) {
+  await interaction.deferReply({ ephemeral: true });
   const canal = interaction.channel;
   const guild = interaction.guild;
   const numero = canal.name.split("-").pop();
@@ -162,7 +162,7 @@ async function cerrar(interaction) {
     )
     .setFooter({ text: "Uwu Café 🌸" });
 
-  await interaction.reply({ embeds: [embedCerrado] });
+  await interaction.editReply({ embeds: [embedCerrado] });
 }
 
 // ================= EXPORTS =================
