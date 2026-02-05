@@ -27,10 +27,10 @@ client.once(Events.ClientReady, async () => {
   // ===== MENSAJE DE POSTULACIONES =====
   const postulaciones = require("./postulaciones");
   await postulaciones(client);
-});
 
   // ===== NORMATIVA =====
   const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
+  if (!canal) return;
 
   // Evitar duplicar normativa
   const mensajes = await canal.messages.fetch({ limit: 10 });
