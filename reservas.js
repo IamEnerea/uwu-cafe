@@ -48,12 +48,12 @@ module.exports = async (client) => {
       .setStyle(ButtonStyle.Primary)
   );
 
-  await canal.send({ embeds: [embed], components: [botonAbrir] });
+  await canal.send({ embeds: [embed], components: [boton] });
+};
 
-    client.on("interactionCreate", async (interaction) => {
-
-    if (!interaction.isButton()) return;
-    const guild = interaction.guild;
+module.exports.abrir = async (interaction) => {
+  await interaction.deferReply({ ephemeral: true });
+  const guild = interaction.guild;
 
     // ===== ABRIR TICKET =====
     if (interaction.customId === "abrir_reserva") {
