@@ -14,6 +14,7 @@ async function enviarMensaje(client) {
     .setTitle("☕🎀 Anuncios IN-GAME — Uwu Café 🎀☕")
     .setColor(0xF6A5C0)
     .setDescription(
+      "ㅤ\n" +
       "✨ **Uso de anuncios** ✨\n\n" +
       "Estos mensajes están pensados para ser copiados y pegados dentro del juego usando el comando **/anuncio** cuando estés en servicio.\n\n" +
 
