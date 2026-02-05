@@ -29,6 +29,14 @@ client.once(Events.ClientReady, async () => {
     console.error("Error cargando los módulos:", error);
   }
 
+   // ================= ANUNCIOS IN-GAME =================
+try {
+  const anuncios = require("./anuncios");
+  await anuncios.enviarMensaje(client);
+} catch (error) {
+  console.error("Error enviando anuncios:", error);
+}
+  
   // ================= NORMATIVA =================
   try {
     const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
