@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 
-const CANAL_ANUNCIOS_ID = "1464800212202815622"; // CAMBIA SI ES OTRO CANAL
+const CANAL_ANUNCIOS_ID = "1469074594806759657"; // CAMBIA SI ES OTRO CANAL
 
 async function enviarMensaje(client) {
   const canal = await client.channels.fetch(CANAL_ANUNCIOS_ID);
