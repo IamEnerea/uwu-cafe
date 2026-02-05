@@ -84,6 +84,6 @@ client.once(Events.ClientReady, async () => {
 
 // ================= INTERACCIONES =================
 // 👇 ESTA LÍNEA ES LA CLAVE DE TODO
-require("./interaction")(client);
+require("./interactions")(client);
 
 client.login(process.env.TOKEN);
