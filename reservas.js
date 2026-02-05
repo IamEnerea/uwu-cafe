@@ -46,22 +46,28 @@ module.exports = async (client) => {
       .setCustomId("abrir_reserva")
       .setLabel("Reserva aquí 💌")
       .setStyle(ButtonStyle.Primary)
-  );
+ );
 
-  await canal.send({ embeds: [embed], components: [boton] });
-};
+  await canal.send({ embeds: [embed], components: [botonAbrir] });
 
- await canal.send({ embeds: [embed], components: [boton] });
-};
+  client.on("interactionCreate", async (interaction) => {
+    if (!interaction.isButton()) return;
+    const guild = interaction.guild;
 
-module.exports.abrir = async (interaction) => {
-  await interaction.deferReply({ ephemeral: true });
-  const guild = interaction.guild;
+    // ===== ABRIR TICKET =====
+    if (interaction.customId === "abrir_reserva") {
+      await interaction.deferReply({ ephemeral: true }); // 🔑 CLAVE
 
-  const existente = guild.channels.cache.find(
-    c => c.parentId === CATEGORIA_RESERVAS_ID && c.topic === interaction.user.id
-  );
-  if (existente) return interaction.editReply("Ya tienes una reserva abierta 💖");
+      const existente = guild.channels.cache.find(c =>
+        c.parentId === CATEGORIA_RESERVAS_ID &&
+        c.topic === interaction.user.id
+      );
+
+      if (existente) {
+        return interaction.editReply(
+          "Ya tienes un ticket de reserva abierto. 💖"
+        );
+      }
 
       const numero = String(
         guild.channels.cache.filter(c =>
