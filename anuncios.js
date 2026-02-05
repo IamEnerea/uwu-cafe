@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 
 // 📝 Canal donde irá el mensaje de anuncios internos
-const CANAL_ANUNCIOS_ID = "ID_DEL_CANAL_AQUI"; // ← cambia SOLO esto
+const CANAL_ANUNCIOS_ID = "1469074594806759657"; // ← cambia SOLO esto
 
 module.exports = async (client) => {
   const canal = await client.channels.fetch(CANAL_ANUNCIOS_ID);
