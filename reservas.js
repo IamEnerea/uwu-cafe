@@ -21,146 +21,145 @@ const STAFF_ROLE_IDS = [
   "1464806004037390543"
 ];
 
-module.exports = async (client) => {
-  const canal = await client.channels.fetch(CANAL_RESERVAS_ID);
-  if (!canal) return;
+module.exports = {
+  // ===== MÉTODO PARA ENVIAR MENSAJE PRINCIPAL =====
+  async enviarMensajePrincipal(client) {
+    const canal = await client.channels.fetch(CANAL_RESERVAS_ID);
+    if (!canal) return;
 
-  const mensajes = await canal.messages.fetch({ limit: 10 });
-  if (mensajes.some(m => m.author.id === client.user.id)) return;
+    const mensajes = await canal.messages.fetch({ limit: 10 });
+    if (mensajes.some(m => m.author.id === client.user.id)) return;
 
-  const embed = new EmbedBuilder()
-    .setTitle("Reservas ☕🎀")
-    .setColor(0xF6A5C0)
-    .setDescription(
-      "────────── ✧ ──────────\n\n" +
-      "**¿Quieres reservar una mesa o el local completo?** ✨\n\n" +
-      "• Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n" +
-      "• Reacciona presionando el botón de abajo y agenda tu reserva 💖\n" +
-      "• Nuestro personal te atenderá lo antes posible 🧸\n\n" +
-      "────────── ✧ ──────────\n"
-    )
-    .setFooter({ text: "Uwu Café ☕🎀" });
+    const embed = new EmbedBuilder()
+      .setTitle("Reservas ☕🎀")
+      .setColor(0xF6A5C0)
+      .setDescription(
+        "────────── ✧ ──────────\n\n" +
+        "**¿Quieres reservar una mesa o el local completo?** ✨\n\n" +
+        "• Celebra con nosotros cumpleaños, citas o eventos especiales 🧁💕\n" +
+        "• Reacciona presionando el botón de abajo y agenda tu reserva 💖\n" +
+        "• Nuestro personal te atenderá lo antes posible 🧸\n\n" +
+        "────────── ✧ ──────────\n"
+      )
+      .setFooter({ text: "Uwu Café ☕🎀" });
 
-  const botonAbrir = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId("abrir_reserva")
-      .setLabel("Reserva aquí 💌")
-      .setStyle(ButtonStyle.Primary)
- );
+    const botonAbrir = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId("abrir_reserva")
+        .setLabel("Reserva aquí 💌")
+        .setStyle(ButtonStyle.Primary)
+    );
 
-  await canal.send({ embeds: [embed], components: [botonAbrir] });
+    await canal.send({ embeds: [embed], components: [botonAbrir] });
+  },
 
-  client.on("interactionCreate", async (interaction) => {
-    if (!interaction.isButton()) return;
+  // ===== MÉTODO PARA ABRIR TICKET =====
+  async abrir(interaction) {
     const guild = interaction.guild;
+    await interaction.deferReply({ ephemeral: true });
 
-    // ===== ABRIR TICKET =====
-    if (interaction.customId === "abrir_reserva") {
-      await interaction.deferReply({ ephemeral: true }); // 🔑 CLAVE
+    const existente = guild.channels.cache.find(c =>
+      c.parentId === CATEGORIA_RESERVAS_ID &&
+      c.topic === interaction.user.id
+    );
 
-      const existente = guild.channels.cache.find(c =>
+    if (existente) {
+      return interaction.editReply(
+        "Ya tienes un ticket de reserva abierto. 💖"
+      );
+    }
+
+    const numero = String(
+      guild.channels.cache.filter(c =>
         c.parentId === CATEGORIA_RESERVAS_ID &&
-        c.topic === interaction.user.id
-      );
+        c.name.startsWith("reserva-")
+      ).size + 1
+    ).padStart(3, "0");
 
-      if (existente) {
-        return interaction.editReply(
-          "Ya tienes un ticket de reserva abierto. 💖"
-        );
+    const permisos = [
+      { id: guild.id, deny: [PermissionsBitField.Flags.ViewChannel] },
+      {
+        id: interaction.user.id,
+        allow: [
+          PermissionsBitField.Flags.ViewChannel,
+          PermissionsBitField.Flags.SendMessages,
+          PermissionsBitField.Flags.ReadMessageHistory
+        ]
       }
+    ];
 
-      const numero = String(
-        guild.channels.cache.filter(c =>
-          c.parentId === CATEGORIA_RESERVAS_ID &&
-          c.name.startsWith("reserva-")
-        ).size + 1
-      ).padStart(3, "0");
-
-      const permisos = [
-        { id: guild.id, deny: [PermissionsBitField.Flags.ViewChannel] },
-        {
-          id: interaction.user.id,
-          allow: [
-            PermissionsBitField.Flags.ViewChannel,
-            PermissionsBitField.Flags.SendMessages,
-            PermissionsBitField.Flags.ReadMessageHistory
-          ]
-        }
-      ];
-
-      STAFF_ROLE_IDS.forEach(id => {
-        permisos.push({
-          id,
-          allow: [
-            PermissionsBitField.Flags.ViewChannel,
-            PermissionsBitField.Flags.SendMessages,
-            PermissionsBitField.Flags.ReadMessageHistory
-          ]
-        });
+    STAFF_ROLE_IDS.forEach(id => {
+      permisos.push({
+        id,
+        allow: [
+          PermissionsBitField.Flags.ViewChannel,
+          PermissionsBitField.Flags.SendMessages,
+          PermissionsBitField.Flags.ReadMessageHistory
+        ]
       });
+    });
 
-      const ticket = await guild.channels.create({
-        name: `reserva-${numero}`,
-        topic: interaction.user.id,
-        type: ChannelType.GuildText,
-        parent: CATEGORIA_RESERVAS_ID,
-        permissionOverwrites: permisos
-      });
+    const ticket = await guild.channels.create({
+      name: `reserva-${numero}`,
+      topic: interaction.user.id,
+      type: ChannelType.GuildText,
+      parent: CATEGORIA_RESERVAS_ID,
+      permissionOverwrites: permisos
+    });
 
-      const embedTicket = new EmbedBuilder()
-        .setColor(0xF6A5C0)
-        .setTitle("Reservas ☕🎀")
-        .setDescription(
-          `Hola ${interaction.user} 🧸💖\n\n` +
-          "Gracias por tu interés en **Uwu Café** ☕🎀\n\n" +
-          "────────── ✧ ──────────\n\n" +
-          "📅 **Fecha de la reserva**\n" +
-          "⏰ **Hora**\n" +
-          "🍽️ **Mesa o local completo**\n" +
-          "👥 **Cantidad de personas**\n" +
-          "🎉 **Tipo de evento** (si aplica)\n\n" +
-          "────────── ✧ ──────────\n\n" +
-          "Nuestro equipo te atenderá lo antes posible ✨"
-        );
-
-      const botonCerrar = new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-          .setCustomId("cerrar_reserva")
-          .setLabel("Cerrar ticket 🔒")
-          .setStyle(ButtonStyle.Secondary)
+    const embedTicket = new EmbedBuilder()
+      .setColor(0xF6A5C0)
+      .setTitle("Reservas ☕🎀")
+      .setDescription(
+        `Hola ${interaction.user} 🧸💖\n\n` +
+        "Gracias por tu interés en **Uwu Café** ☕🎀\n\n" +
+        "────────── ✧ ──────────\n\n" +
+        "📅 **Fecha de la reserva**\n" +
+        "⏰ **Hora**\n" +
+        "🍽️ **Mesa o local completo**\n" +
+        "👥 **Cantidad de personas**\n" +
+        "🎉 **Tipo de evento** (si aplica)\n\n" +
+        "────────── ✧ ──────────\n\n" +
+        "Nuestro equipo te atenderá lo antes posible ✨"
       );
 
-      await ticket.send({ embeds: [embedTicket], components: [botonCerrar] });
+    const botonCerrar = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId("cerrar_reserva")
+        .setLabel("Cerrar ticket 🔒")
+        .setStyle(ButtonStyle.Secondary)
+    );
 
-      await interaction.editReply(
-        `💖 Tu ticket fue creado correctamente: ${ticket}`
+    await ticket.send({ embeds: [embedTicket], components: [botonCerrar] });
+
+    await interaction.editReply(
+      `💖 Tu ticket fue creado correctamente: ${ticket}`
+    );
+  },
+
+  // ===== MÉTODO PARA CERRAR TICKET =====
+  async cerrar(interaction) {
+    await interaction.deferReply({ ephemeral: true });
+    const guild = interaction.guild;
+    const canal = interaction.channel;
+    const numero = canal.name.split("-").pop();
+
+    await canal.permissionOverwrites.edit(guild.id, { SendMessages: false });
+    for (const id of STAFF_ROLE_IDS) {
+      await canal.permissionOverwrites.edit(id, { SendMessages: false });
+    }
+    await canal.permissionOverwrites.edit(canal.topic, { SendMessages: false });
+
+    await canal.setName(`cerrado-reserva-${numero}`);
+
+    const embedCerrado = new EmbedBuilder()
+      .setTitle("🔒 Reserva cerrada")
+      .setColor(0xF6A5C0)
+      .setDescription(
+        `La **Reserva #${numero}** ha sido cerrada correctamente 🧸💖\n\n` +
+        "Gracias por confiar en **Uwu Café** ☕🎀"
       );
-    }
 
-    // ===== CERRAR TICKET =====
-    if (interaction.customId === "cerrar_reserva") {
-      await interaction.deferReply();
-
-      const canal = interaction.channel;
-      const numero = canal.name.split("-").pop();
-
-      await canal.permissionOverwrites.edit(guild.id, { SendMessages: false });
-      for (const id of STAFF_ROLE_IDS) {
-        await canal.permissionOverwrites.edit(id, { SendMessages: false });
-      }
-      await canal.permissionOverwrites.edit(canal.topic, { SendMessages: false });
-
-      await canal.setName(`cerrado-reserva-${numero}`);
-
-      const embedCerrado = new EmbedBuilder()
-        .setTitle("🔒 Reserva cerrada")
-        .setColor(0xF6A5C0)
-        .setDescription(
-          `La **Reserva #${numero}** ha sido cerrada correctamente 🧸💗\n\n` +
-          "Gracias por confiar en **Uwu Café** ☕🎀"
-        );
-
-      await interaction.editReply({ embeds: [embedCerrado] });
-    }
-  });
+    await interaction.editReply({ embeds: [embedCerrado] });
+  }
 };
