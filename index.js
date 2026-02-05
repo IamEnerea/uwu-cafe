@@ -17,17 +17,17 @@ client.once(Events.ClientReady, async () => {
   console.log(`☕🎀 Uwu Café está online como ${client.user.tag}`);
 
   // ================= MENSAJES PRINCIPALES =================
-try {
-  const reservas = require("./reservas");
-  const convenios = require("./convenios");
-  const postulaciones = require("./postulaciones");
+  try {
+    const reservas = require("./reservas");
+    const convenios = require("./convenios");
+    const postulaciones = require("./postulaciones");
 
-  await reservas.enviarMensajePrincipal(client);
-  await convenios.enviarMensajePrincipal(client);
-  await postulaciones.enviarMensajePrincipal(client);
-} catch (error) {
-  console.error("Error cargando los módulos:", error);
-}
+    await reservas.enviarMensajePrincipal(client);
+    await convenios.enviarMensajePrincipal(client);
+    await postulaciones.enviarMensajePrincipal(client);
+  } catch (error) {
+    console.error("Error cargando los módulos:", error);
+  }
 
   // ================= NORMATIVA =================
   try {
@@ -81,5 +81,9 @@ try {
     console.error("Error enviando la normativa:", error);
   }
 });
+
+// ================= INTERACCIONES =================
+// 👇 ESTA LÍNEA ES LA CLAVE DE TODO
+require("./interaction")(client);
 
 client.login(process.env.TOKEN);
