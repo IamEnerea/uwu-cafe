@@ -9,167 +9,148 @@ const {
 
 // ================= CONFIGURACIÓN =================
 
-// 💼 Canal donde se enviará el mensaje de postulaciones
 const CANAL_POSTULACIONES_ID = "1464792107909906584";
-
-// 📂 Categoría donde se crearán los tickets
 const CATEGORIA_POSTULACIONES_ID = "1464810893895536640";
 
-// 👥 Roles del staff (los mismos que reservas y convenios)
 const STAFF_ROLE_IDS = [
   "1464790642134876243",
   "1464806004037390543"
 ];
 
-// ================= MÉTODO PARA ENVIAR MENSAJE PRINCIPAL =================
-async function enviarMensajePrincipal(client) {
-  const canal = await client.channels.fetch(CANAL_POSTULACIONES_ID);
-  if (!canal) return;
+module.exports = {
+  // ===== MENSAJE PRINCIPAL =====
+  async enviarMensajePrincipal(client) {
+    const canal = await client.channels.fetch(CANAL_POSTULACIONES_ID);
+    if (!canal) return;
 
-  const mensajes = await canal.messages.fetch({ limit: 10 });
-  if (mensajes.some(m => m.author.id === client.user.id)) return;
+    const mensajes = await canal.messages.fetch({ limit: 10 });
+    if (mensajes.some(m => m.author.id === client.user.id)) return;
 
-  const embed = new EmbedBuilder()
-    .setTitle("Postulaciones ☕🎀")
-    .setColor(0xF6A5C0)
-    .setDescription(
-      "────────── ✧ ──────────\n\n" +
-      "**¿Te interesa formar parte del equipo de Uwu Café?** ✨\n\n" +
-      "• Buscamos personas responsables, amables y con amor por el servicio 💖\n" +
-      "• Presiona el botón de abajo para postularte 🧸\n" +
-      "• Nuestro equipo revisará tu solicitud ☕🎀\n\n" +
-      "────────── ✧ ──────────"
-    )
-    .setFooter({ text: "Uwu Café ☕🎀" });
+    const embed = new EmbedBuilder()
+      .setTitle("Postulaciones ☕🎀")
+      .setColor(0xF6A5C0)
+      .setDescription(
+        "────────── ✧ ──────────\n\n" +
+        "**¿Te interesa formar parte del equipo de Uwu Café?** ✨\n\n" +
+        "• Buscamos personas responsables, amables y con amor por el servicio 💖\n" +
+        "• Presiona el botón de abajo para postularte 🧸\n" +
+        "• Nuestro equipo revisará tu solicitud ☕🎀\n\n" +
+        "────────── ✧ ──────────"
+      )
+      .setFooter({ text: "Uwu Café ☕🎀" });
 
-  const botonAbrir = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId("abrir_postulacion")
-      .setLabel("Postula aquí 🎀")
-      .setStyle(ButtonStyle.Primary)
-  );
-
-  await canal.send({
-    embeds: [embed],
-    components: [botonAbrir]
-  });
-}
-
-// ================= MÉTODO PARA ABRIR TICKET =================
-async function abrir(interaction) {
-  const guild = interaction.guild;
-  await interaction.deferReply({ ephemeral: true });
-
-  const existente = guild.channels.cache.find(c =>
-    c.parentId === CATEGORIA_POSTULACIONES_ID &&
-    c.topic === interaction.user.id
-  );
-
-  if (existente) {
-    return interaction.editReply(
-      "Ya tienes una postulación abierta 💖"
+    const botonAbrir = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId("abrir_postulacion")
+        .setLabel("Postula aquí 🎀")
+        .setStyle(ButtonStyle.Primary)
     );
-  }
 
-  const numero = String(
-    guild.channels.cache.filter(c =>
+    await canal.send({ embeds: [embed], components: [botonAbrir] });
+  },
+
+  // ===== ABRIR POSTULACIÓN =====
+  async abrir(interaction) {
+    await interaction.deferReply({ ephemeral: true });
+    const guild = interaction.guild;
+
+    const existente = guild.channels.cache.find(c =>
       c.parentId === CATEGORIA_POSTULACIONES_ID &&
-      c.name.startsWith("postulacion-")
-    ).size + 1
-  ).padStart(3, "0");
-
-  const permisos = [
-    { id: guild.id, deny: [PermissionsBitField.Flags.ViewChannel] },
-    {
-      id: interaction.user.id,
-      allow: [
-        PermissionsBitField.Flags.ViewChannel,
-        PermissionsBitField.Flags.SendMessages,
-        PermissionsBitField.Flags.ReadMessageHistory
-      ]
-    }
-  ];
-
-  STAFF_ROLE_IDS.forEach(id => {
-    permisos.push({
-      id,
-      allow: [
-        PermissionsBitField.Flags.ViewChannel,
-        PermissionsBitField.Flags.SendMessages,
-        PermissionsBitField.Flags.ReadMessageHistory
-      ]
-    });
-  });
-
-  const ticket = await guild.channels.create({
-    name: `postulacion-${numero}`,
-    topic: interaction.user.id,
-    type: ChannelType.GuildText,
-    parent: CATEGORIA_POSTULACIONES_ID,
-    permissionOverwrites: permisos
-  });
-
-  const embedTicket = new EmbedBuilder()
-    .setTitle("Postulaciones ☕🎀")
-    .setColor(0xF6A5C0)
-    .setDescription(
-      `Hola ${interaction.user} 🧸💖\n\n` +
-      "Gracias por tu interés en formar parte de **Uwu Café** ☕🎀\n\n" +
-      "────────── ✧ ──────────\n\n" +
-      "Por favor, completa la siguiente información:\n\n" +
-      "👤 **Nombre completo**\n" +
-      "🎂 **Edad**\n" +
-      "📞 **Número de contacto**\n" +
-      "⏰ **Disponibilidad horaria**\n" +
-      "🧠 **Experiencia previa** (opcional)\n" +
-      "💖 **¿Por qué deberíamos elegirte como parte del equipo?**\n\n" +
-      "────────── ✧ ──────────\n\n" +
-      "Nuestro equipo revisará tu postulación y te contactaremos✨"
+      c.topic === interaction.user.id
     );
 
-  const botonCerrar = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId("cerrar_postulacion")
-      .setLabel("Cerrar postulación 🔒")
-      .setStyle(ButtonStyle.Secondary)
-  );
+    if (existente) {
+      return interaction.editReply("Ya tienes una postulación abierta 💖");
+    }
 
-  await ticket.send({
-    embeds: [embedTicket],
-    components: [botonCerrar]
-  });
+    const numero = String(
+      guild.channels.cache.filter(c =>
+        c.parentId === CATEGORIA_POSTULACIONES_ID &&
+        c.name.startsWith("postulacion-")
+      ).size + 1
+    ).padStart(3, "0");
 
-  await interaction.editReply(
-    `💖 Tu postulación fue creada correctamente: ${ticket}`
-  );
-}
+    const permisos = [
+      { id: guild.id, deny: [PermissionsBitField.Flags.ViewChannel] },
+      {
+        id: interaction.user.id,
+        allow: [
+          PermissionsBitField.Flags.ViewChannel,
+          PermissionsBitField.Flags.SendMessages,
+          PermissionsBitField.Flags.ReadMessageHistory
+        ]
+      }
+    ];
 
-// ================= MÉTODO PARA CERRAR TICKET =================
-async function cerrar(interaction) {
-  await interaction.deferReply({ ephemeral: true });
-  const canal = interaction.channel;
-  const guild = interaction.guild;
-  const numero = canal.name.split("-").pop();
+    STAFF_ROLE_IDS.forEach(id => {
+      permisos.push({
+        id,
+        allow: [
+          PermissionsBitField.Flags.ViewChannel,
+          PermissionsBitField.Flags.SendMessages,
+          PermissionsBitField.Flags.ReadMessageHistory
+        ]
+      });
+    });
 
-  await canal.permissionOverwrites.edit(guild.id, { SendMessages: false });
-  for (const id of STAFF_ROLE_IDS) {
-    await canal.permissionOverwrites.edit(id, { SendMessages: false });
+    const ticket = await guild.channels.create({
+      name: `postulacion-${numero}`,
+      topic: interaction.user.id,
+      type: ChannelType.GuildText,
+      parent: CATEGORIA_POSTULACIONES_ID,
+      permissionOverwrites: permisos
+    });
+
+    const embedTicket = new EmbedBuilder()
+      .setTitle("Postulaciones ☕🎀")
+      .setColor(0xF6A5C0)
+      .setDescription(
+        `Hola ${interaction.user} 🧸💖\n\n` +
+        "Gracias por tu interés en formar parte de **Uwu Café** ☕🎀\n\n" +
+        "────────── ✧ ──────────\n\n" +
+        "👤 **Nombre completo**\n" +
+        "🎂 **Edad**\n" +
+        "📞 **Número de contacto**\n" +
+        "⏰ **Disponibilidad horaria**\n" +
+        "🧠 **Experiencia previa** (opcional)\n" +
+        "💖 **¿Por qué deberíamos elegirte?**\n\n" +
+        "────────── ✧ ──────────"
+      );
+
+    const botonCerrar = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId("cerrar_postulacion")
+        .setLabel("Cerrar postulación 🔒")
+        .setStyle(ButtonStyle.Secondary)
+    );
+
+    await ticket.send({ embeds: [embedTicket], components: [botonCerrar] });
+    await interaction.editReply(`💖 Tu postulación fue creada: ${ticket}`);
+  },
+
+  // ===== CERRAR POSTULACIÓN =====
+  async cerrar(interaction) {
+    await interaction.deferReply({ ephemeral: true });
+    const canal = interaction.channel;
+    const guild = interaction.guild;
+    const numero = canal.name.split("-").pop();
+
+    await canal.permissionOverwrites.edit(guild.id, { SendMessages: false });
+    for (const id of STAFF_ROLE_IDS) {
+      await canal.permissionOverwrites.edit(id, { SendMessages: false });
+    }
+    await canal.permissionOverwrites.edit(canal.topic, { SendMessages: false });
+
+    await canal.setName(`cerrado-postulacion-${numero}`);
+
+    const embedCerrado = new EmbedBuilder()
+      .setTitle("🔒 Postulación cerrada")
+      .setColor(0xF6A5C0)
+      .setDescription(
+        `La **Postulación #${numero}** ha sido cerrada 🧸💖\n\n` +
+        "Gracias por tu interés en **Uwu Café** ☕🎀"
+      );
+
+    await interaction.editReply({ embeds: [embedCerrado] });
   }
-  await canal.permissionOverwrites.edit(canal.topic, { SendMessages: false });
-
-  await canal.setName(`cerrado-postulacion-${numero}`);
-
-  const embedCerrado = new EmbedBuilder()
-    .setTitle("🔒 Postulación cerrada")
-    .setColor(0xF6A5C0)
-    .setDescription(
-      `La **Postulación #${numero}** ha sido cerrada 🧸💖\n\n` +
-      "Gracias por tu interés en **Uwu Café** ☕🎀"
-    )
-    .setFooter({ text: "Uwu Café 🌸" });
-
-  await interaction.editReply({ embeds: [embedCerrado] });
-}
-
-// ================= EXPORTS =================
-module.exports = { enviarMensajePrincipal, abrir, cerrar };
+};
