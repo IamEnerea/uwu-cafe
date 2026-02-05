@@ -17,9 +17,14 @@ client.once(Events.ClientReady, async () => {
   console.log(`☕🎀 Uwu Café está online como ${client.user.tag}`);
 
   // MENSAJES PRINCIPALES
-  await require("./reservas")(client);
-  await require("./convenios")(client);
-  await require("./postulaciones")(client);
+  // Ahora usamos la función enviarMensajePrincipal de cada módulo
+  const reservas = require("./reservas");
+  const convenios = require("./convenios");
+  const postulaciones = require("./postulaciones");
+
+  await reservas.enviarMensajePrincipal(client);
+  await convenios.enviarMensajePrincipal(client);
+  await postulaciones.enviarMensajePrincipal(client);
 
   // ===== NORMATIVA =====
   const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
