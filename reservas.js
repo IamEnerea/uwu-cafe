@@ -51,24 +51,17 @@ module.exports = async (client) => {
   await canal.send({ embeds: [embed], components: [boton] });
 };
 
+ await canal.send({ embeds: [embed], components: [boton] });
+};
+
 module.exports.abrir = async (interaction) => {
   await interaction.deferReply({ ephemeral: true });
   const guild = interaction.guild;
 
-    // ===== ABRIR TICKET =====
-    if (interaction.customId === "abrir_reserva") {
-      await interaction.deferReply({ ephemeral: true }); // 🔑 CLAVE
-
-      const existente = guild.channels.cache.find(c =>
-        c.parentId === CATEGORIA_RESERVAS_ID &&
-        c.topic === interaction.user.id
-      );
-
-      if (existente) {
-        return interaction.editReply(
-          "Ya tienes un ticket de reserva abierto. 💖"
-        );
-      }
+  const existente = guild.channels.cache.find(
+    c => c.parentId === CATEGORIA_RESERVAS_ID && c.topic === interaction.user.id
+  );
+  if (existente) return interaction.editReply("Ya tienes una reserva abierta 💖");
 
       const numero = String(
         guild.channels.cache.filter(c =>
