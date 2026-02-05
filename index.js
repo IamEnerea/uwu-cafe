@@ -16,17 +16,10 @@ const CANAL_NORMATIVA_ID = "1464800212202815622";
 client.once(Events.ClientReady, async () => {
   console.log(`☕🎀 Uwu Café está online como ${client.user.tag}`);
 
-  // ===== MENSAJE DE RESERVAS =====
-  const reservas = require("./reservas");
-  await reservas(client);
-
-  // ===== MENSAJE DE CONVENIOS =====
-  const convenios = require("./convenios");
-  await convenios(client);
-
-  // ===== MENSAJE DE POSTULACIONES =====
-  const postulaciones = require("./postulaciones");
-  await postulaciones(client);
+  // MENSAJES PRINCIPALES
+  await require("./reservas")(client);
+  await require("./convenios")(client);
+  await require("./postulaciones")(client);
 
   // ===== NORMATIVA =====
   const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
