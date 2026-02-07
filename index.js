@@ -93,6 +93,14 @@ try {
   }
 });
 
+  // ================= REGISTROS INTERNOS =================
+  try {
+    const registros = require("./registros");
+    await registros.enviarRegistros(client);
+  } catch (error) {
+    console.error("Error enviando registros:", error);
+  }
+
 // ================= INTERACCIONES =================
 // 👇 ESTA LÍNEA ES LA CLAVE DE TODO
 require("./interactions")(client);
