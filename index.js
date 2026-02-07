@@ -32,14 +32,22 @@ client.once(Events.ClientReady, async () => {
     console.error("Error cargando los módulos:", error);
   }
 
-   // ================= ANUNCIOS IN-GAME =================
-try {
-  const anuncios = require("./anuncios");
-  await anuncios.enviarMensaje(client);
-} catch (error) {
-  console.error("Error enviando anuncios:", error);
-}
-  
+  // ================= ANUNCIOS IN-GAME =================
+  try {
+    const anuncios = require("./anuncios");
+    await anuncios.enviarMensaje(client);
+  } catch (error) {
+    console.error("Error enviando anuncios:", error);
+  }
+
+  // ================= REGISTROS INTERNOS =================
+  try {
+    const registros = require("./registros");
+    await registros.enviarRegistros(client);
+  } catch (error) {
+    console.error("Error enviando registros:", error);
+  }
+
   // ================= NORMATIVA =================
   try {
     const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
@@ -93,16 +101,7 @@ try {
   }
 });
 
-  // ================= REGISTROS INTERNOS =================
-  try {
-    const registros = require("./registros");
-    await registros.enviarRegistros(client);
-  } catch (error) {
-    console.error("Error enviando registros:", error);
-  }
-
 // ================= INTERACCIONES =================
-// 👇 ESTA LÍNEA ES LA CLAVE DE TODO
 require("./interactions")(client);
 
 client.login(process.env.TOKEN);
