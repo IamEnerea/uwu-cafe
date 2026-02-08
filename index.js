@@ -40,6 +40,14 @@ client.once(Events.ClientReady, async () => {
     console.error("Error enviando anuncios:", error);
   }
 
+  // ================= MENU & COMBOS =================
+  try {
+    const menu = require("./menu");
+    await menu.enviarMenu(client);
+ }  catch (error) {
+  console.error("Error enviando menú:", error);
+ }
+
   // ================= REGISTROS INTERNOS =================
   try {
     const registros = require("./registros");
