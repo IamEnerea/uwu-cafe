@@ -52,7 +52,7 @@ module.exports = {
         " •  🍋 Limonada x3 **o** x6 *(sin uwu café)*\n\n" +
 
         `${separador}\n` +
-        "📌 *Los precios serán definidos próximamente.*\n" +" +
+        "📌 *Los precios serán definidos próximamente.*\n" +
         `${separador}\n` +
       )
       .setFooter({ text: "Uwu Café ☕🎀" });
