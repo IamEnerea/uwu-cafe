@@ -23,16 +23,16 @@ module.exports = {
         "🌸 **COMBOS SIN ALCOHOL** 🌸\n" +
         `${separador}\n\n` +
 
-        "**☀️ Combo «Morning Uwu»**\n" +
+        "**☀️ Combo «Morning Uwu» = 180 dls**\n" +
         " •  ☕ Uwu Café x3\n" +
         " •  🍪 Uwu Galleta x3\n\n" +
 
-        "**🍩 Combo «Sweet Break»**\n" +
+        "**🍩 Combo «Sweet Break» = 360 dls**\n" +
         " •  ☕ Uwu Café x6\n" +
         " •  🍪 Uwu Galleta x3\n" +
         " •  🍩 Dona x3\n\n" +
 
-        "**🌿 Combo «Uwu Street»**\n" +
+        "**🌿 Combo «Uwu Street» = 180 dls**\n" +
         " •  🥙 Kebab x3\n" +
         " •  🍋 Limonada x3\n\n" +
 
@@ -40,19 +40,17 @@ module.exports = {
         "🌙 **COMBOS CON ALCOHOL** 🌙\n" +
         `${separador}\n\n` +
 
-        "**🌸 Combo «Sakura Chill»**\n" +
+        "**🌸 Combo «Sakura Chill» = 360 dls**\n" +
         " •  🍶 Sake x3\n" +
         " •  🥙 Kebab x3\n\n" +
 
-        "**🔥 Combo «Uwu Night Deluxe»**\n" +
+        "**🔥 Combo «Uwu Night Deluxe» = 630 dls**\n" +
         " •  🍶 Sake x3\n" +
         " •  🥙 Kebab x3\n" +
         " •  🍩 Dona x3\n" +
         " •  ☕ Uwu Café x3 **o** x6 *(sin limonada)*\n" +
         " •  🍋 Limonada x3 **o** x6 *(sin uwu café)*\n\n" +
 
-        `${separador}\n` +
-        "📌 *Los precios serán definidos próximamente.*\n" +
         `${separador}\n`
 
       )
