@@ -23,16 +23,16 @@ module.exports = {
         "🌸 **COMBOS SIN ALCOHOL** 🌸\n" +
         `${separador}\n\n` +
 
-        "**☀️ Combo «Morning Uwu»**\n\n" +
+        "**☀️ Combo «Morning Uwu»**\n" +
         " •  ☕ Uwu Café x3\n" +
         " •  🍪 Uwu Galleta x3\n\n" +
 
-        "**🍩 Combo «Sweet Break»**\n\n" +
+        "**🍩 Combo «Sweet Break»**\n" +
         " •  ☕ Uwu Café x6\n" +
         " •  🍪 Uwu Galleta x3\n" +
         " •  🍩 Dona x3\n\n" +
 
-        "**🌿 Combo «Uwu Street»**\n\n" +
+        "**🌿 Combo «Uwu Street»**\n" +
         " •  🥙 Kebab x3\n" +
         " •  🍋 Limonada x3\n\n" +
 
@@ -40,11 +40,11 @@ module.exports = {
         "🌙 **COMBOS CON ALCOHOL** 🌙\n" +
         `${separador}\n\n` +
 
-        "**🌸 Combo «Sakura Chill»**\n\n" +
+        "**🌸 Combo «Sakura Chill»**\n" +
         " •  🍶 Sake x3\n" +
         " •  🥙 Kebab x3\n\n" +
 
-        "**🔥 Combo «Uwu Night Deluxe»**\n\n" +
+        "**🔥 Combo «Uwu Night Deluxe»**\n" +
         " •  🍶 Sake x3\n" +
         " •  🥙 Kebab x3\n" +
         " •  🍩 Dona x3\n" +
