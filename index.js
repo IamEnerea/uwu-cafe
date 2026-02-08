@@ -41,12 +41,12 @@ client.once(Events.ClientReady, async () => {
   }
 
   // ================= MENU & COMBOS =================
-  try {
-    const menu = require("./menu");
-    await menu.enviarMenu(client);
- }  catch (error) {
-  console.error("Error enviando menú:", error);
- }
+try {
+  const menu = require("./menu");
+  await menu.enviarMenu(client);
+} catch (error) {
+  console.error("Error enviando el menú:", error);
+}
 
   // ================= REGISTROS INTERNOS =================
   try {
