@@ -53,7 +53,9 @@ module.exports = {
 
         `${separador}\n` +
         "📌 *Los precios serán definidos próximamente.*\n" +
-        `${separador}\n` +
+        `${separador}\n`
+      )
+
       )
       .setFooter({ text: "Uwu Café ☕🎀" });
 
