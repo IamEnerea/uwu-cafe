@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   async enviarMenu(client) {
-    const CANAL_MENU_ID = "ID_DEL_CANAL_MENU"; // CAMBIA ESTE ID
+    const CANAL_MENU_ID = "1464801507345039463"; // CAMBIA ESTE ID
 
     const canal = await client.channels.fetch(CANAL_MENU_ID);
     if (!canal) return;
