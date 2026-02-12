@@ -130,7 +130,7 @@ module.exports = {
     if (!mensajes.some(m => m.embeds[0]?.title?.includes("EJE 4"))) {
 
       const eje4Embed = new EmbedBuilder()
-        .setTitle("🛠✨ CONVENIO — EJE 4 (20%) ✨🛠")
+        .setTitle("🛠✨ CONVENIO — PALETO BAY EJE 4 (20%) ✨🛠")
         .setColor(0x3498DB)
         .setDescription(
           "\n\n" +
