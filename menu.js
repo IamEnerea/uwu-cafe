@@ -23,33 +23,35 @@ module.exports = {
           "🌸 **COMBOS SIN ALCOHOL** 🌸\n" +
           `${separador}\n\n` +
 
-          "**☀️ Combo «Morning Uwu» = 180 dls**\n" +
+          "**☀️ Combo «Morning Uwu» = 120 dls**\n" +
           " •  ☕ Uwu Café x3\n" +
           " •  🍪 Uwu Galleta x3\n\n" +
 
-          "**🍩 Combo «Sweet Break» = 360 dls**\n" +
-          " •  ☕ Uwu Café x6\n" +
-          " •  🍪 Uwu Galleta x3\n" +
+          "**🍩 Combo «Sugar Uwu» = 120 dls**\n" +
+          " •  ☕ Uwu Café x3\n" +
           " •  🍩 Dona x3\n\n" +
 
           "**🌿 Combo «Uwu Street» = 180 dls**\n" +
           " •  🥙 Kebab x3\n" +
           " •  🍋 Limonada x3\n\n" +
 
+          "**🌸 Combo «Sweet Break» = 240 dls**\n" +
+          " •  ☕ Uwu Café x3\n" +
+          " •  🍪 Uwu Galleta x3\n" +
+          " •  🍩 Dona x3\n" +
+          " •  🍋 Limonada x3\n\n" +
+
           `${separador}\n` +
           "🌙 **COMBOS CON ALCOHOL** 🌙\n" +
           `${separador}\n\n` +
-
-          "**🌸 Combo «Sakura Chill» = 360 dls**\n" +
-          " •  🍶 Sake x3\n" +
-          " •  🥙 Kebab x3\n\n" +
-
-          "**🔥 Combo «Uwu Night Deluxe» = 630 dls**\n" +
+         
+          "**🔥 Combo «Uwu Deluxe Supreme» = 400 dls**\n" +
           " •  🍶 Sake x3\n" +
           " •  🥙 Kebab x3\n" +
           " •  🍩 Dona x3\n" +
-          " •  ☕ Uwu Café x3 **o** x6 *(sin limonada)*\n" +
-          " •  🍋 Limonada x3 **o** x6 *(sin uwu café)*\n\n" +
+          " •  🍪 Uwu Galleta x3\n" +
+          " •  ☕ Uwu Café x3\n" +
+          " •  🍋 Limonada x3\n\n" +
 
           `${separador}\n`
         )
@@ -71,13 +73,13 @@ module.exports = {
           "🌸 **PRODUCTOS DE CAFETERÍA** 🌸\n" +
           `${separador}\n\n` +
 
-          "🍪 Galleta = 30 dls\n" +
-          "🥙 Kebab = 60 dls\n" +
-          "🍩 Dona = 30 dls\n\n" +
+          "🍪 Galleta = 20 dls\n" +
+          "🥙 Kebab = 40 dls\n" +
+          "🍩 Dona = 20 dls\n\n" +
 
-          "🍶 Sake = 60 dls\n" +
-          "☕ Uwu Café = 30 dls\n" +
-          "🍋 Limonada = 30 dls\n\n" +
+          "🍶 Sake = 40 dls\n" +
+          "☕ Uwu Café = 20 dls\n" +
+          "🍋 Limonada = 20 dls\n\n" +
 
           `${separador}\n` +
           "🛠 **PRODUCTOS ADICIONALES** 🛠\n" +
@@ -108,16 +110,16 @@ module.exports = {
           "🌸 **COMBOS SIN ALCOHOL** 🌸\n" +
           `${separador}\n\n` +
 
-          "**☀️ Combo «Morning Uwu» = 162 dls**\n\n" +
-          "**🍩 Combo «Sweet Break» = 324 dls**\n\n" +
-          "**🌿 Combo «Uwu Street» = 162 dls**\n\n" +
-
+          "**☀️ Combo «Morning Uwu» = 108 dls**\n\n" +
+          "**🍩 Combo «Sugar Uwu» = 108 dls**\n\n" +
+          "**🌿 Combo «Uwu Street» = 126 dls**\n\n" +
+          "**🌸 Combo «Sweet Break» = 216 dls**\n\n" +
+          
           `${separador}\n` +
           "🌙 **COMBOS CON ALCOHOL** 🌙\n" +
           `${separador}\n\n` +
 
-          "**🌸 Combo «Sakura Chill» = 324 dls**\n\n" +
-          "**🔥 Combo «Uwu Night Deluxe» = 567 dls**\n\n" +
+          "**🔥 Combo «Uwu Deluxe Supreme» = 360 dls**\n\n" +
 
           `${separador}\n`
         )
@@ -140,16 +142,16 @@ module.exports = {
           "🌸 **COMBOS SIN ALCOHOL** 🌸\n" +
           `${separador}\n\n` +
 
-          "**☀️ Combo «Morning Uwu» = 144 dls**\n\n" +
-          "**🍩 Combo «Sweet Break» = 288 dls**\n\n" +
-          "**🌿 Combo «Uwu Street» = 144 dls**\n\n" +
-
+          "**☀️ Combo «Morning Uwu» = 96 dls**\n\n" +
+          "**🍩 Combo «Sugar Uwu» = 96 dls**\n\n" +
+          "**🌿 Combo «Uwu Street» = 112 dls**\n\n" +
+          "**🌸 Combo «Sweet Break» = 192 dls**\n\n" +
+         
           `${separador}\n` +
           "🌙 **COMBOS CON ALCOHOL** 🌙\n" +
           `${separador}\n\n` +
 
-          "**🌸 Combo «Sakura Chill» = 288 dls**\n\n" +
-          "**🔥 Combo «Uwu Night Deluxe» = 504 dls**\n\n" +
+          "**🔥 Combo «Uwu Deluxe Supreme» = 320 dls**\n\n" +
 
           `${separador}\n`
         )
