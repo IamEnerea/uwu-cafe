@@ -31,7 +31,7 @@ module.exports = {
           " •  ☕ Uwu Café x3\n" +
           " •  🍩 Dona x3\n\n" +
 
-          "**🌿 Combo «Uwu Street» = 180 dls**\n" +
+          "**🌿 Combo «Uwu Street» = 140 dls**\n" +
           " •  🥙 Kebab x3\n" +
           " •  🍋 Limonada x3\n\n" +
 
