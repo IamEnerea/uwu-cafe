@@ -88,6 +88,7 @@ module.exports = {
           "🛠 Kit de reparación = 350 dls\n" +
           "🛹 Skateboard = 2000 dls\n" +
           "🎟 Rascas y gana = 250 dls\n\n" +
+          "💉 IFAKS = 200 dls\n\n" +
 
           `${separador}\n`
         )
@@ -100,7 +101,7 @@ module.exports = {
     if (!mensajes.some(m => m.embeds[0]?.title?.includes("REPAIR WORKSHOP"))) {
 
       const repairEmbed = new EmbedBuilder()
-        .setTitle("🔧✨ CONVENIO — REPAIR WORKSHOP (10%) ✨🔧")
+        .setTitle("🔧✨ CONVENIO — TY'S REPAIR WORKSHOP & SAMD MÉDICOS (10%) ✨💊")
         .setColor(0x57F287)
         .setDescription(
           "\n\n" +
