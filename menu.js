@@ -87,7 +87,7 @@ module.exports = {
 
           "🛠 Kit de reparación = 350 dls\n" +
           "🛹 Skateboard = 2000 dls\n" +
-          "🎟 Rascas y gana = 250 dls\n\n" +
+          "🎟 Rascas y gana = 250 dls\n" +
           "💉 IFAKS = 200 dls\n\n" +
 
           `${separador}\n`
