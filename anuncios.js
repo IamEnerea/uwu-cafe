@@ -16,7 +16,7 @@ async function enviarMensaje(client) {
     .setDescription(
       "ㅤ\n" +
       "✨ **Uso de anuncios** ✨\n\n" +
-      "Estos mensajes están pensados para ser copiados y pegados dentro del juego usando el comando **/anuncio** cuando estés en servicio.\n\n" +
+      "Estos mensajes están pensados para ser copiados y pegados usando el comando **/anuncio** cuando estés en servicio.\n\n" +
 
       "────────── ✧ ──────────\n\n" +
 
@@ -27,11 +27,40 @@ async function enviarMensaje(client) {
 
       "────────── ✧ ──────────\n\n" +
 
-      "🧁 **COMIDA · CAFÉ**\n\n" +
-      "/anuncio ☕🧁 Cafecito recién hecho y algo dulce ✨ te esperamos en Uwu Café 🎀\n" +
-      "/anuncio 💖 Un café y un ambiente tranquilo? Todo eso te espera en Uwu Café ☕🌸\n" +
-      "/anuncio 🧸✨ El lugar perfecto para una pausa tranquila existe… y es Uwu Café ☕🎀\n\n" +
+      "🎁 **COMBOS SIN ALCOHOL**\n\n" +
+      "/anuncio ☀️🎀 Combo «Morning Uwu» disponible ✨ cafecito y galletitas para empezar bonito 💖\n" +
+      "/anuncio 🍩🌸 Antojito dulce? Pide el combo «Sugar Uwu» ✨ café y donitas perfectas 🎀\n" +
+      "/anuncio 🌿✨ Hambre callejera? Combo «Uwu Street» listo para ti 🥙🍋\n" +
+      "/anuncio 🌸💖 ¿Pausa completa? Pide el combo «Sweet Break» ✨ el favorito para compartir 🎀\n\n" +
 
+      "────────── ✧ ──────────\n\n" +
+
+      "🍷 **COMBOS CON ALCOHOL**\n\n" +
+      "/anuncio 🔥✨ El combo «Uwu Deluxe Supreme» ya está disponible 🌙🍶 una experiencia completa 🎀\n" +
+      "/anuncio 🌙🎀 ¿Noche especial? Pregunta por el «Uwu Deluxe Supreme» ✨\n\n" +
+
+      "────────── ✧ ──────────\n\n" +
+
+      "🛠️ **PRODUCTOS DISPONIBLES**\n" +
+      "🚑 **IFAKS (Antiestrés)**\n\n" +
+      "/anuncio 🚑✨ IFAKS disponibles 💖 ven y desestrésate con nosotros\n" + 
+      "/anuncio 🩺🌸 Mantén la calma en cualquier situación ✨ pregunta por nuestros IFAKS 🎀\n" +
+      "/anuncio 💕🚑 Seguridad y apoyo listos para acompañarte ✨ stock disponible de IFAKS\n\n" +
+
+      "────────── ✧ ──────────\n\n" +
+
+      "🔧 **KITS DE REPARACIÓN**\n\n" +
+      "/anuncio 🔧✨ Kits de reparación disponibles 💼 mejora tu vehículo con nosotros\n" +
+      "/anuncio 🛠️🌸 ¿Tu coche necesita mantenimiento? Tenemos kits listos ✨\n" +
+      "/anuncio 💖🔧 Calidad y buen servicio en kits de reparación ven por el tuyo ✨\n\n" +
+
+      "────────── ✧ ──────────\n\n" +
+
+      "🛹 **SKATES**\n\n" +
+      "/anuncio 🛹✨ Skates disponibles 💖 movilidad con estilo, ven por el tuyo\n" +
+      "/anuncio 🌸🛹 ¿Buscas algo diferente? Tenemos skates en venta ✨\n" +
+      "/anuncio 💕🛹 Listos para rodar ✨ pasa por el local y consigue tu Skateboard\n\n" +
+      
       "────────── ✧ ──────────\n\n" +
 
       "🎀 **AMBIENTE & VIBES**\n\n" +
