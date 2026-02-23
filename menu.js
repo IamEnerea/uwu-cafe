@@ -101,11 +101,11 @@ module.exports = {
     if (!mensajes.some(m => m.embeds[0]?.title?.includes("REPAIR WORKSHOP"))) {
 
       const repairEmbed = new EmbedBuilder()
-        .setTitle("🔧✨ CONVENIO — TY'S REPAIR WORKSHOP & SAMD MÉDICOS (10%) ✨💊")
+        .setTitle("🔧✨ CONVENIO — TY'S REPAIR WORKSHOP — SAMD MÉDICOS — SAPD OFICIALES (10%) ✨💊")
         .setColor(0x57F287)
         .setDescription(
           "\n\n" +
-          "⚠️ *Válido únicamente presentando carnet laboral del taller.*\n\n" +
+          "⚠️ *Válido únicamente presentando carnet laboral o placa.*\n\n" +
 
           `${separador}\n` +
           "🌸 **COMBOS SIN ALCOHOL** 🌸\n" +
