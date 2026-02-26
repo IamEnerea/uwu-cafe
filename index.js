@@ -42,12 +42,12 @@ client.once(Events.ClientReady, async () => {
   }
 
   // ================= MENU & COMBOS =================
-try {
-  const menu = require("./menu");
-  await menu.enviarMenu(client);
-} catch (error) {
-  console.error("Error enviando el menú:", error);
-}
+  try {
+    const menu = require("./menu");
+    await menu.enviarMenu(client);
+  } catch (error) {
+    console.error("Error enviando el menú:", error);
+  }
 
   // ================= REGISTROS INTERNOS =================
   try {
@@ -113,6 +113,24 @@ try {
 // ================= INTERACCIONES =================
 require("./interactions")(client);
 
+// ================= MANEJO GLOBAL DE ERRORES =================
+process.on("unhandledRejection", async (error) => {
+  console.error("⚠️ Error no manejado:", error);
+
+  // Evitar reinicio por interacción ya respondida
+  if (error.code === 40060 || error.code === "InteractionAlreadyReplied") {
+    console.log("⚡ Interacción ya respondida, se ignora.");
+    return;
+  }
+
+  // Ignorar errores de tipo inválido en permisos
+  if (error.code === "InvalidType") {
+    console.log("⚡ Parámetro inválido para permisos, se ignora.");
+    return;
+  }
+});
+
+// ================= LOGIN =================
 client.login(process.env.TOKEN);
 
 // ================= SERVIDOR PARA FLY.IO =================
