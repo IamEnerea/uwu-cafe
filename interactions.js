@@ -47,13 +47,4 @@ module.exports = (client) => {
       }
     }
   });
-};  // ===== POSTULACIONES =====
-    if (interaction.customId === "abrir_postulacion") {
-      return postulaciones.abrir(interaction);
-    }
-
-    if (interaction.customId === "cerrar_postulacion") {
-      return postulaciones.cerrar(interaction);
-    }
-  });
 };
