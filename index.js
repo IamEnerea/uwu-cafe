@@ -113,3 +113,17 @@ try {
 require("./interactions")(client);
 
 client.login(process.env.TOKEN);
+
+// ================= SERVIDOR PARA FLY.IO =================
+const express = require("express");
+
+const app = express();
+const PORT = process.env.PORT || 8080;
+
+app.get("/", (req, res) => {
+  res.send("Uwu Café está vivo ☕🎀");
+});
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Servidor web activo en puerto ${PORT}`);
+});
