@@ -62,7 +62,6 @@ client.once(Events.ClientReady, async () => {
     const canal = await client.channels.fetch(CANAL_NORMATIVA_ID);
     if (!canal) return;
 
-    // Evitar duplicar normativa
     const mensajes = await canal.messages.fetch({ limit: 10 });
     if (mensajes.some(m => m.author.id === client.user.id)) return;
 
@@ -117,13 +116,11 @@ require("./interactions")(client);
 process.on("unhandledRejection", async (error) => {
   console.error("⚠️ Error no manejado:", error);
 
-  // Evitar reinicio por interacción ya respondida
   if (error.code === 40060 || error.code === "InteractionAlreadyReplied") {
     console.log("⚡ Interacción ya respondida, se ignora.");
     return;
   }
 
-  // Ignorar errores de tipo inválido en permisos
   if (error.code === "InvalidType") {
     console.log("⚡ Parámetro inválido para permisos, se ignora.");
     return;
@@ -133,17 +130,15 @@ process.on("unhandledRejection", async (error) => {
 // ================= LOGIN =================
 client.login(process.env.CAFE_TOKEN);
 
-// ================= SERVIDOR PARA FLY.IO =================
+// ================= SERVIDOR PARA RENDER =================
 const express = require("express");
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.send("Uwu Café está vivo ☕🎀");
 });
-
-const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Servidor web activo en puerto ${PORT}`);
