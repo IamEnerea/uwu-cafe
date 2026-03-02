@@ -128,6 +128,7 @@ process.on("unhandledRejection", async (error) => {
 });
 
 // ================= LOGIN =================
+console.log("TOKEN detectado:", process.env.CAFE_TOKEN ? "Sí" : "No");
 client.login(process.env.CAFE_TOKEN);
 
 // ================= SERVIDOR PARA RENDER =================
