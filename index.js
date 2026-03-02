@@ -131,7 +131,7 @@ process.on("unhandledRejection", async (error) => {
 });
 
 // ================= LOGIN =================
-client.login(process.env.TOKEN);
+client.login(process.env.CAFE_TOKEN);
 
 // ================= SERVIDOR PARA FLY.IO =================
 const express = require("express");
