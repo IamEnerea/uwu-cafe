@@ -2,13 +2,15 @@ const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   async enviarMenu(client) {
-    const CANAL_MENU_ID = "1464801507345039463";
+    try {
 
-    const canal = await client.channels.fetch(CANAL_MENU_ID);
-    if (!canal) return;
+      const CANAL_MENU_ID = "1464801507345039463";
 
-    const mensajes = await canal.messages.fetch({ limit: 20 });
-    const separador = "────────── ✧ ──────────";
+      const canal = await client.channels.fetch(CANAL_MENU_ID);
+      if (!canal) return;
+
+      const mensajes = await canal.messages.fetch({ limit: 20 });
+      const separador = "────────── ✧ ──────────";
 
     // ================= MENÚ PRINCIPAL =================
     if (!mensajes.some(m => m.embeds[0]?.title?.includes("MENÚ & COMBOS"))) {
