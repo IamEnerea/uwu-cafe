@@ -128,8 +128,9 @@ process.on("unhandledRejection", async (error) => {
 });
 
 // ================= LOGIN =================
-console.log("TOKEN detectado:", process.env.CAFE_TOKEN ? "Sí" : "No");
-client.login(process.env.CAFE_TOKEN);
+client.login(process.env.CAFE_TOKEN)
+  .then(() => console.log("✅ Login exitoso"))
+  .catch(err => console.error("❌ Error al hacer login:", err));
 
 // ================= SERVIDOR PARA RENDER =================
 const express = require("express");
